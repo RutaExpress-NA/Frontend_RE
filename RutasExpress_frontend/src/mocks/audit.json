@@ -1,0 +1,62 @@
+[
+  {
+    "id": "evt-9001",
+    "shipmentId": "shp-00123",
+    "eventType": "STATUS_CHANGED",
+    "fromStatus": "CREADO",
+    "toStatus": "ACEPTADO",
+    "performedByUserId": "auth0|despachador001",
+    "performedByRole": "Despachador",
+    "timestamp": "2026-08-20T15:30:00Z"
+  },
+  {
+    "id": "evt-9002",
+    "shipmentId": "shp-00123",
+    "eventType": "STATUS_CHANGED",
+    "fromStatus": "ACEPTADO",
+    "toStatus": "EN_BODEGA",
+    "performedByUserId": "auth0|despachador001",
+    "performedByRole": "Despachador",
+    "timestamp": "2026-08-21T08:00:00Z"
+  },
+  {
+    "id": "evt-9003",
+    "shipmentId": "shp-00123",
+    "eventType": "STATUS_CHANGED",
+    "fromStatus": "EN_BODEGA",
+    "toStatus": "EN_RUTA",
+    "performedByUserId": "auth0|despachador001",
+    "performedByRole": "Despachador",
+    "timestamp": "2026-08-21T09:12:00Z"
+  },
+  {
+    "id": "evt-9004",
+    "shipmentId": "shp-00124",
+    "eventType": "STATUS_CHANGED",
+    "fromStatus": "EN_RUTA",
+    "toStatus": "ENTREGADO",
+    "performedByUserId": "auth0|despachador002",
+    "performedByRole": "Despachador",
+    "timestamp": "2026-08-19T16:00:00Z"
+  },
+  {
+    "id": "evt-9005",
+    "shipmentId": "shp-00125",
+    "eventType": "STATUS_CHANGED",
+    "fromStatus": "ACEPTADO",
+    "toStatus": "CANCELADO",
+    "performedByUserId": "auth0|despachador001",
+    "performedByRole": "Despachador",
+    "timestamp": "2026-08-15T18:30:00Z"
+  },
+  {
+    "id": "evt-9006",
+    "shipmentId": "shp-00120",
+    "eventType": "SHIPMENT_CREATED",
+    "fromStatus": null,
+    "toStatus": "CREADO",
+    "performedByUserId": "auth0|cliente001",
+    "performedByRole": "Cliente",
+    "timestamp": "2026-08-25T10:00:00Z"
+  }
+]

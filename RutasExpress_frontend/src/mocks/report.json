@@ -1,0 +1,25 @@
+{
+  "range": "last24h",
+  "shipmentsPerHour": [
+    { "hour": "2026-08-25T08:00:00Z", "count": 6 },
+    { "hour": "2026-08-25T09:00:00Z", "count": 10 },
+    { "hour": "2026-08-25T10:00:00Z", "count": 14 },
+    { "hour": "2026-08-25T11:00:00Z", "count": 9 },
+    { "hour": "2026-08-25T12:00:00Z", "count": 12 },
+    { "hour": "2026-08-25T13:00:00Z", "count": 18 }
+  ],
+  "avgLeadTimeMinutes": 143,
+  "activeByStatus": {
+    "CREADO": 5,
+    "ACEPTADO": 8,
+    "EN_BODEGA": 3,
+    "EN_RUTA": 20,
+    "ENTREGADO": 102,
+    "CANCELADO": 4
+  },
+  "topServices": [
+    { "serviceId": "svc-001", "name": "Envío Express 24h", "count": 58 },
+    { "serviceId": "svc-002", "name": "Envío Estándar 48-72h", "count": 41 },
+    { "serviceId": "svc-003", "name": "Carga Media (Furgón)", "count": 12 }
+  ]
+}

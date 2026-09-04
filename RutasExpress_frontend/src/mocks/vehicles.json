@@ -1,0 +1,20 @@
+[
+  {
+    "id": "veh-001",
+    "vehicleType": "MOTO",
+    "totalCapacity": 20,
+    "currentAvailable": 14
+  },
+  {
+    "id": "veh-002",
+    "vehicleType": "FURGON",
+    "totalCapacity": 10,
+    "currentAvailable": 6
+  },
+  {
+    "id": "veh-003",
+    "vehicleType": "CAMION",
+    "totalCapacity": 4,
+    "currentAvailable": 1
+  }
+]

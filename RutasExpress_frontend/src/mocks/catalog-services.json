@@ -1,0 +1,42 @@
+[
+  {
+    "id": "svc-001",
+    "name": "Envío Express 24h",
+    "description": "Entrega en menos de 24 horas dentro de zona urbana",
+    "price": 5990,
+    "active": true,
+    "vehicleTypeRequired": "MOTO"
+  },
+  {
+    "id": "svc-002",
+    "name": "Envío Estándar 48-72h",
+    "description": "Entrega estándar para envíos no urgentes",
+    "price": 3490,
+    "active": true,
+    "vehicleTypeRequired": "MOTO"
+  },
+  {
+    "id": "svc-003",
+    "name": "Carga Media (Furgón)",
+    "description": "Para paquetes medianos o múltiples bultos",
+    "price": 12990,
+    "active": true,
+    "vehicleTypeRequired": "FURGON"
+  },
+  {
+    "id": "svc-004",
+    "name": "Carga Pesada (Camión)",
+    "description": "Para volúmenes grandes o mudanzas pequeñas",
+    "price": 34990,
+    "active": true,
+    "vehicleTypeRequired": "CAMION"
+  },
+  {
+    "id": "svc-005",
+    "name": "Envío Nocturno (descontinuado)",
+    "description": "Entrega entre 22:00 y 06:00, ya no disponible",
+    "price": 8990,
+    "active": false,
+    "vehicleTypeRequired": "MOTO"
+  }
+]

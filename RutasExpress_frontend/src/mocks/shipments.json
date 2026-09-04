@@ -1,0 +1,134 @@
+[
+  {
+    "id": "shp-00120",
+    "trackingCode": "RE-2026-00120",
+    "status": "CREADO",
+    "serviceId": "svc-002",
+    "createdByUserId": "auth0|cliente001",
+    "assignedDispatcherId": null,
+    "recipient": {
+      "name": "Pedro Salinas",
+      "email": "pedro.salinas@example.com",
+      "phone": "+56911111111",
+      "address": "Los Aromos 123, Ñuñoa, Santiago"
+    },
+    "weightKg": 2.0,
+    "createdAt": "2026-08-25T10:00:00Z",
+    "updatedAt": "2026-08-25T10:00:00Z",
+    "statusHistory": [
+      { "status": "CREADO", "timestamp": "2026-08-25T10:00:00Z", "byUserId": "auth0|cliente001" }
+    ]
+  },
+  {
+    "id": "shp-00121",
+    "trackingCode": "RE-2026-00121",
+    "status": "ACEPTADO",
+    "serviceId": "svc-001",
+    "createdByUserId": "auth0|cliente002",
+    "assignedDispatcherId": "auth0|despachador001",
+    "recipient": {
+      "name": "Camila Vega",
+      "email": "camila.vega@example.com",
+      "phone": "+56922222222",
+      "address": "Av. Providencia 2222, Providencia, Santiago"
+    },
+    "weightKg": 1.2,
+    "createdAt": "2026-08-24T09:15:00Z",
+    "updatedAt": "2026-08-24T11:00:00Z",
+    "statusHistory": [
+      { "status": "CREADO", "timestamp": "2026-08-24T09:15:00Z", "byUserId": "auth0|cliente002" },
+      { "status": "ACEPTADO", "timestamp": "2026-08-24T11:00:00Z", "byUserId": "auth0|despachador001" }
+    ]
+  },
+  {
+    "id": "shp-00122",
+    "trackingCode": "RE-2026-00122",
+    "status": "EN_BODEGA",
+    "serviceId": "svc-003",
+    "createdByUserId": "auth0|cliente001",
+    "assignedDispatcherId": "auth0|despachador002",
+    "recipient": {
+      "name": "Rodrigo Fuentes",
+      "email": "rodrigo.fuentes@example.com",
+      "phone": "+56933333333",
+      "address": "Camino La Farfana 456, Maipú, Santiago"
+    },
+    "weightKg": 8.5,
+    "createdAt": "2026-08-23T08:00:00Z",
+    "updatedAt": "2026-08-23T14:20:00Z",
+    "statusHistory": [
+      { "status": "CREADO", "timestamp": "2026-08-23T08:00:00Z", "byUserId": "auth0|cliente001" },
+      { "status": "ACEPTADO", "timestamp": "2026-08-23T09:30:00Z", "byUserId": "auth0|despachador002" },
+      { "status": "EN_BODEGA", "timestamp": "2026-08-23T14:20:00Z", "byUserId": "auth0|despachador002" }
+    ]
+  },
+  {
+    "id": "shp-00123",
+    "trackingCode": "RE-2026-00123",
+    "status": "EN_RUTA",
+    "serviceId": "svc-001",
+    "createdByUserId": "auth0|cliente002",
+    "assignedDispatcherId": "auth0|despachador001",
+    "recipient": {
+      "name": "Juan Pérez",
+      "email": "juan.perez@example.com",
+      "phone": "+56944444444",
+      "address": "Av. Siempre Viva 742, Santiago"
+    },
+    "weightKg": 4.5,
+    "createdAt": "2026-08-20T14:00:00Z",
+    "updatedAt": "2026-08-21T09:12:00Z",
+    "statusHistory": [
+      { "status": "CREADO", "timestamp": "2026-08-20T14:00:00Z", "byUserId": "auth0|cliente002" },
+      { "status": "ACEPTADO", "timestamp": "2026-08-20T15:30:00Z", "byUserId": "auth0|despachador001" },
+      { "status": "EN_BODEGA", "timestamp": "2026-08-21T08:00:00Z", "byUserId": "auth0|despachador001" },
+      { "status": "EN_RUTA", "timestamp": "2026-08-21T09:12:00Z", "byUserId": "auth0|despachador001" }
+    ]
+  },
+  {
+    "id": "shp-00124",
+    "trackingCode": "RE-2026-00124",
+    "status": "ENTREGADO",
+    "serviceId": "svc-002",
+    "createdByUserId": "auth0|cliente001",
+    "assignedDispatcherId": "auth0|despachador002",
+    "recipient": {
+      "name": "Valentina Soto",
+      "email": "valentina.soto@example.com",
+      "phone": "+56955555555",
+      "address": "Balmaceda 890, San Miguel, Santiago"
+    },
+    "weightKg": 3.1,
+    "createdAt": "2026-08-18T07:45:00Z",
+    "updatedAt": "2026-08-19T16:00:00Z",
+    "statusHistory": [
+      { "status": "CREADO", "timestamp": "2026-08-18T07:45:00Z", "byUserId": "auth0|cliente001" },
+      { "status": "ACEPTADO", "timestamp": "2026-08-18T09:00:00Z", "byUserId": "auth0|despachador002" },
+      { "status": "EN_BODEGA", "timestamp": "2026-08-18T13:00:00Z", "byUserId": "auth0|despachador002" },
+      { "status": "EN_RUTA", "timestamp": "2026-08-19T10:00:00Z", "byUserId": "auth0|despachador002" },
+      { "status": "ENTREGADO", "timestamp": "2026-08-19T16:00:00Z", "byUserId": "auth0|despachador002" }
+    ]
+  },
+  {
+    "id": "shp-00125",
+    "trackingCode": "RE-2026-00125",
+    "status": "CANCELADO",
+    "serviceId": "svc-004",
+    "createdByUserId": "auth0|cliente002",
+    "assignedDispatcherId": "auth0|despachador001",
+    "recipient": {
+      "name": "Tomás Herrera",
+      "email": "tomas.herrera@example.com",
+      "phone": "+56966666666",
+      "address": "Av. Matta 1500, Santiago Centro"
+    },
+    "weightKg": 45.0,
+    "createdAt": "2026-08-15T11:00:00Z",
+    "updatedAt": "2026-08-15T18:30:00Z",
+    "statusHistory": [
+      { "status": "CREADO", "timestamp": "2026-08-15T11:00:00Z", "byUserId": "auth0|cliente002" },
+      { "status": "ACEPTADO", "timestamp": "2026-08-15T12:00:00Z", "byUserId": "auth0|despachador001" },
+      { "status": "CANCELADO", "timestamp": "2026-08-15T18:30:00Z", "byUserId": "auth0|despachador001" }
+    ]
+  }
+]

@@ -1,0 +1,38 @@
+[
+  {
+    "id": "auth0|admin001",
+    "name": "Carla Muñoz",
+    "email": "carla.munoz@rutaexpress.cl",
+    "roles": ["Admin"]
+  },
+  {
+    "id": "auth0|despachador001",
+    "name": "María Torres",
+    "email": "maria.torres@rutaexpress.cl",
+    "roles": ["Despachador"]
+  },
+  {
+    "id": "auth0|despachador002",
+    "name": "Felipe Rojas",
+    "email": "felipe.rojas@rutaexpress.cl",
+    "roles": ["Despachador"]
+  },
+  {
+    "id": "auth0|cliente001",
+    "name": "Juan Pérez",
+    "email": "juan.perez@example.com",
+    "roles": ["Cliente"]
+  },
+  {
+    "id": "auth0|cliente002",
+    "name": "Antonia Reyes",
+    "email": "antonia.reyes@example.com",
+    "roles": ["Cliente"]
+  },
+  {
+    "id": "auth0|auditor001",
+    "name": "Ignacio Vidal",
+    "email": "ignacio.vidal@rutaexpress.cl",
+    "roles": ["Auditor"]
+  }
+]

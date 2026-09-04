@@ -1,0 +1,37 @@
+/* Button */
+.rex-button { }
+.rex-button--primary { }   /* el morado/violeta de "Iniciar sesión con Microsoft" */
+.rex-button--secondary { }
+.rex-button--outline { }   /* como "Reasignar carrier" */
+.rex-button--ghost { }     /* como "Ver detalles" */
+.rex-button--danger { }    /* el coral/rojo de "Entrar" */
+.rex-button--sm { }
+.rex-button--md { }
+.rex-button--lg { }
+.rex-button--full { }      /* ancho completo, como en el login */
+.rex-button--loading { }
+.rex-button__spinner { }
+.rex-button__icon { }
+.rex-button__icon--right { }
+.rex-button__label { }
+
+/* Card */
+.rex-card { }
+.rex-card--padding-none { }
+.rex-card--padding-sm { }
+.rex-card--padding-md { }
+.rex-card--padding-lg { }
+.rex-card--interactive { }  /* cursor pointer + hover, para filas clickeables */
+
+/* LOGIN PAGE */
+.rex-login-page { }           /* fondo completo, centra la card */
+.rex-login-card { }           /* ancho fijo, la card blanca central */
+.rex-login-card__header { }
+.rex-login-card__logo { }
+.rex-login-card__tagline { }
+.rex-login-card__title { }
+.rex-login-card__subtitle { }
+.rex-login-card__divider { }  /* la línea punteada con "o" en medio */
+.rex-login-card__fieldset { } /* opacidad reducida por estar disabled */
+.rex-login-card__input { }
+.rex-login-card__disabled-note { }
