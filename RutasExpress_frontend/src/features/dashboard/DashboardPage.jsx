@@ -3,8 +3,11 @@ import { Button } from "../../ui/Button";
 import { StatCard } from "../../ui/StatCard";
 import { ShipmentRow } from "../shipments/ShipmentRow";
 import { ActivityRow } from "../audit/ActivityRow";
-import { ServiceBar } from "../../ui/ServiceBar";
+import { ProgressBar } from "../../ui/ProgressBar";
 import { CoverageMap } from "../../ui/CoverageMap";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../auth/AuthContext";
+import { getVisibleShipments } from "../shipments/shipmentsScope";
 import { PackageIcon, CheckIcon, ClockIcon, AlertIcon, MapPinIcon, BellIcon, RefreshIcon } from "../../ui/Icons";
 
 // REEMPLAZAR CUANDO BACKEND
@@ -14,6 +17,8 @@ import auditData from "../../mocks/audit.json";
 
 export function DashboardPage({ userName = "Ana" }) {
     const { activeByStatus, topServices } = reportData;
+    const { user, hasRole } = useAuth();
+    const visibleShipments = getVisibleShipments(shipmentsData, user, hasRole);
 
     const enProceso =
         activeByStatus.CREADO + activeByStatus.ACEPTADO + activeByStatus.EN_BODEGA + activeByStatus.EN_RUTA;
@@ -25,7 +30,7 @@ export function DashboardPage({ userName = "Ana" }) {
         { icon: <AlertIcon size={20} />, value: activeByStatus.CANCELADO, label: "Cancelados", sublabel: "Total histórico", tone: "danger" },
     ];
 
-    const recentShipments = [...shipmentsData]
+    const recentShipments = [...visibleShipments]
         .sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt))
         .slice(0, 5);
 
@@ -37,6 +42,7 @@ export function DashboardPage({ userName = "Ana" }) {
 
     const today = new Date().toLocaleDateString("es-CL", { weekday: "long", day: "numeric", month: "long" });
 
+    const navigate = useNavigate();
     return (
         <div className="rex-dashboard">
             <header className="rex-dashboard__header">
@@ -66,7 +72,8 @@ export function DashboardPage({ userName = "Ana" }) {
                     </div>
                     <div className="rex-shipment-list">
                         {recentShipments.map((s) => (
-                            <ShipmentRow key={s.id} shipment={s} />
+                            <ShipmentRow key={s.id} shipment={s}
+                            onClick={() => navigate(`/shipments/${s.id}`)} />
                         ))}
                     </div>
                 </Card>
@@ -107,7 +114,7 @@ export function DashboardPage({ userName = "Ana" }) {
                 </div>
                 <div className="rex-service-performance">
                     {topServices.map((s) => (
-                        <ServiceBar key={s.serviceId} name={s.name} count={s.count} max={maxServiceCount} />
+                        <ProgressBar key={s.serviceId} label={s.name} value={s.count} max={maxServiceCount} />
                     ))}
                 </div>
             </Card>

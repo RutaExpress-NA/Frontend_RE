@@ -1,62 +1,25 @@
 [
-  {
-    "id": "evt-9001",
-    "shipmentId": "shp-00123",
-    "eventType": "STATUS_CHANGED",
-    "fromStatus": "CREADO",
-    "toStatus": "ACEPTADO",
-    "performedByUserId": "auth0|despachador001",
-    "performedByRole": "Despachador",
-    "timestamp": "2026-08-20T15:30:00Z"
-  },
-  {
-    "id": "evt-9002",
-    "shipmentId": "shp-00123",
-    "eventType": "STATUS_CHANGED",
-    "fromStatus": "ACEPTADO",
-    "toStatus": "EN_BODEGA",
-    "performedByUserId": "auth0|despachador001",
-    "performedByRole": "Despachador",
-    "timestamp": "2026-08-21T08:00:00Z"
-  },
-  {
-    "id": "evt-9003",
-    "shipmentId": "shp-00123",
-    "eventType": "STATUS_CHANGED",
-    "fromStatus": "EN_BODEGA",
-    "toStatus": "EN_RUTA",
-    "performedByUserId": "auth0|despachador001",
-    "performedByRole": "Despachador",
-    "timestamp": "2026-08-21T09:12:00Z"
-  },
-  {
-    "id": "evt-9004",
-    "shipmentId": "shp-00124",
-    "eventType": "STATUS_CHANGED",
-    "fromStatus": "EN_RUTA",
-    "toStatus": "ENTREGADO",
-    "performedByUserId": "auth0|despachador002",
-    "performedByRole": "Despachador",
-    "timestamp": "2026-08-19T16:00:00Z"
-  },
-  {
-    "id": "evt-9005",
-    "shipmentId": "shp-00125",
-    "eventType": "STATUS_CHANGED",
-    "fromStatus": "ACEPTADO",
-    "toStatus": "CANCELADO",
-    "performedByUserId": "auth0|despachador001",
-    "performedByRole": "Despachador",
-    "timestamp": "2026-08-15T18:30:00Z"
-  },
-  {
-    "id": "evt-9006",
-    "shipmentId": "shp-00120",
-    "eventType": "SHIPMENT_CREATED",
-    "fromStatus": null,
-    "toStatus": "CREADO",
-    "performedByUserId": "auth0|cliente001",
-    "performedByRole": "Cliente",
-    "timestamp": "2026-08-25T10:00:00Z"
-  }
+  { "id": "evt-0001", "shipmentId": "shp-00120", "eventType": "SHIPMENT_CREATED", "fromStatus": null, "toStatus": "CREADO", "performedByUserId": "auth0|cliente001", "performedByRole": "Cliente", "timestamp": "2026-08-25T10:00:00Z" },
+
+  { "id": "evt-0002", "shipmentId": "shp-00121", "eventType": "SHIPMENT_CREATED", "fromStatus": null, "toStatus": "CREADO", "performedByUserId": "auth0|cliente002", "performedByRole": "Cliente", "timestamp": "2026-08-24T09:15:00Z" },
+  { "id": "evt-0003", "shipmentId": "shp-00121", "eventType": "STATUS_CHANGED", "fromStatus": "CREADO", "toStatus": "ACEPTADO", "performedByUserId": "auth0|despachador001", "performedByRole": "Despachador", "timestamp": "2026-08-24T11:00:00Z" },
+
+  { "id": "evt-0004", "shipmentId": "shp-00122", "eventType": "SHIPMENT_CREATED", "fromStatus": null, "toStatus": "CREADO", "performedByUserId": "auth0|cliente001", "performedByRole": "Cliente", "timestamp": "2026-08-23T08:00:00Z" },
+  { "id": "evt-0005", "shipmentId": "shp-00122", "eventType": "STATUS_CHANGED", "fromStatus": "CREADO", "toStatus": "ACEPTADO", "performedByUserId": "auth0|despachador002", "performedByRole": "Despachador", "timestamp": "2026-08-23T09:30:00Z" },
+  { "id": "evt-0006", "shipmentId": "shp-00122", "eventType": "STATUS_CHANGED", "fromStatus": "ACEPTADO", "toStatus": "EN_BODEGA", "performedByUserId": "auth0|despachador002", "performedByRole": "Despachador", "timestamp": "2026-08-23T14:20:00Z" },
+
+  { "id": "evt-0007", "shipmentId": "shp-00123", "eventType": "SHIPMENT_CREATED", "fromStatus": null, "toStatus": "CREADO", "performedByUserId": "auth0|cliente002", "performedByRole": "Cliente", "timestamp": "2026-08-20T14:00:00Z" },
+  { "id": "evt-0008", "shipmentId": "shp-00123", "eventType": "STATUS_CHANGED", "fromStatus": "CREADO", "toStatus": "ACEPTADO", "performedByUserId": "auth0|despachador001", "performedByRole": "Despachador", "timestamp": "2026-08-20T15:30:00Z" },
+  { "id": "evt-0009", "shipmentId": "shp-00123", "eventType": "STATUS_CHANGED", "fromStatus": "ACEPTADO", "toStatus": "EN_BODEGA", "performedByUserId": "auth0|despachador001", "performedByRole": "Despachador", "timestamp": "2026-08-21T08:00:00Z" },
+  { "id": "evt-0010", "shipmentId": "shp-00123", "eventType": "STATUS_CHANGED", "fromStatus": "EN_BODEGA", "toStatus": "EN_RUTA", "performedByUserId": "auth0|despachador001", "performedByRole": "Despachador", "timestamp": "2026-08-21T09:12:00Z" },
+
+  { "id": "evt-0011", "shipmentId": "shp-00124", "eventType": "SHIPMENT_CREATED", "fromStatus": null, "toStatus": "CREADO", "performedByUserId": "auth0|cliente001", "performedByRole": "Cliente", "timestamp": "2026-08-18T07:45:00Z" },
+  { "id": "evt-0012", "shipmentId": "shp-00124", "eventType": "STATUS_CHANGED", "fromStatus": "CREADO", "toStatus": "ACEPTADO", "performedByUserId": "auth0|despachador002", "performedByRole": "Despachador", "timestamp": "2026-08-18T09:00:00Z" },
+  { "id": "evt-0013", "shipmentId": "shp-00124", "eventType": "STATUS_CHANGED", "fromStatus": "ACEPTADO", "toStatus": "EN_BODEGA", "performedByUserId": "auth0|despachador002", "performedByRole": "Despachador", "timestamp": "2026-08-18T13:00:00Z" },
+  { "id": "evt-0014", "shipmentId": "shp-00124", "eventType": "STATUS_CHANGED", "fromStatus": "EN_BODEGA", "toStatus": "EN_RUTA", "performedByUserId": "auth0|despachador002", "performedByRole": "Despachador", "timestamp": "2026-08-19T10:00:00Z" },
+  { "id": "evt-0015", "shipmentId": "shp-00124", "eventType": "STATUS_CHANGED", "fromStatus": "EN_RUTA", "toStatus": "ENTREGADO", "performedByUserId": "auth0|despachador002", "performedByRole": "Despachador", "timestamp": "2026-08-19T16:00:00Z" },
+
+  { "id": "evt-0016", "shipmentId": "shp-00125", "eventType": "SHIPMENT_CREATED", "fromStatus": null, "toStatus": "CREADO", "performedByUserId": "auth0|cliente002", "performedByRole": "Cliente", "timestamp": "2026-08-15T11:00:00Z" },
+  { "id": "evt-0017", "shipmentId": "shp-00125", "eventType": "STATUS_CHANGED", "fromStatus": "CREADO", "toStatus": "ACEPTADO", "performedByUserId": "auth0|despachador001", "performedByRole": "Despachador", "timestamp": "2026-08-15T12:00:00Z" },
+  { "id": "evt-0018", "shipmentId": "shp-00125", "eventType": "STATUS_CHANGED", "fromStatus": "ACEPTADO", "toStatus": "CANCELADO", "performedByUserId": "auth0|despachador001", "performedByRole": "Despachador", "timestamp": "2026-08-15T18:30:00Z" }
 ]

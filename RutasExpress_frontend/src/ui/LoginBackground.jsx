@@ -1,4 +1,4 @@
-import { EnvelopeIllustration, MailboxIllustration, PostmarkIllustration, CloudIllustration } from "./LoginIllustrations";
+import { EnvelopeIllustration, PostmarkIllustration, CloudIllustration } from "./LoginIllustrations";
 
 export function LoginBackground() {
     return (
@@ -31,10 +31,6 @@ export function LoginBackground() {
 >
     <path d="M0 80 Q360 20 720 60 Q1080 100 1440 40 L1440 120 L0 120 Z" />
             </svg>
-
-            <div className="rex-login-bg__mailbox">
-                <MailboxIllustration />
-            </div>
 
             <div className="rex-login-bg__dots">
                 {Array.from({ length: 10 }).map((_, i) => (

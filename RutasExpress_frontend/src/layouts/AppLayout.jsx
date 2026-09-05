@@ -1,9 +1,9 @@
 import { Outlet } from "react-router-dom";
 import { Sidebar } from "../ui/Sidebar";
-import { useDarkMode } from "../hooks/useDarkMode";
+import { useTheme } from "../context/ThemeContext";
 
 export function AppLayout() {
-    const [darkMode, toggleDarkMode] = useDarkMode();
+    const { darkMode, toggleDarkMode } = useTheme();
 
     return (
         <div className="rex-app-layout">

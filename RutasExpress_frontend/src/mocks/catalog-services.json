@@ -5,7 +5,17 @@
     "description": "Entrega en menos de 24 horas dentro de zona urbana",
     "price": 5990,
     "active": true,
-    "vehicleTypeRequired": "MOTO"
+    "popular": true,
+    "vehicleTypeRequired": "MOTO",
+    "weightLimitKg": 5,
+    "etaWindowLabel": "2-4 hs",
+    "slaPercent": 95,
+    "coverageCities": ["Santiago", "Providencia", "Ñuñoa"],
+    "features": [
+      "Seguimiento GPS en tiempo real",
+      "Confirmación por WhatsApp",
+      "Firma digital del destinatario"
+    ]
   },
   {
     "id": "svc-002",
@@ -13,7 +23,16 @@
     "description": "Entrega estándar para envíos no urgentes",
     "price": 3490,
     "active": true,
-    "vehicleTypeRequired": "MOTO"
+    "popular": false,
+    "vehicleTypeRequired": "MOTO",
+    "weightLimitKg": 20,
+    "etaWindowLabel": "2-3 días",
+    "slaPercent": 90,
+    "coverageCities": ["Todo el país"],
+    "features": [
+      "Seguimiento por código de tracking",
+      "Notificación por email"
+    ]
   },
   {
     "id": "svc-003",
@@ -21,7 +40,16 @@
     "description": "Para paquetes medianos o múltiples bultos",
     "price": 12990,
     "active": true,
-    "vehicleTypeRequired": "FURGON"
+    "popular": false,
+    "vehicleTypeRequired": "FURGON",
+    "weightLimitKg": 100,
+    "etaWindowLabel": "24 hs",
+    "slaPercent": 92,
+    "coverageCities": ["Santiago", "Maipú", "San Bernardo"],
+    "features": [
+      "Seguimiento GPS en tiempo real",
+      "Carga y descarga asistida"
+    ]
   },
   {
     "id": "svc-004",
@@ -29,7 +57,16 @@
     "description": "Para volúmenes grandes o mudanzas pequeñas",
     "price": 34990,
     "active": true,
-    "vehicleTypeRequired": "CAMION"
+    "popular": false,
+    "vehicleTypeRequired": "CAMION",
+    "weightLimitKg": 500,
+    "etaWindowLabel": "5-7 días",
+    "slaPercent": 88,
+    "coverageCities": ["Todo el país"],
+    "features": [
+      "Seguro de carga incluido",
+      "Coordinación de horario de entrega"
+    ]
   },
   {
     "id": "svc-005",
@@ -37,6 +74,12 @@
     "description": "Entrega entre 22:00 y 06:00, ya no disponible",
     "price": 8990,
     "active": false,
-    "vehicleTypeRequired": "MOTO"
+    "popular": false,
+    "vehicleTypeRequired": "MOTO",
+    "weightLimitKg": 5,
+    "etaWindowLabel": "Nocturno",
+    "slaPercent": 80,
+    "coverageCities": ["Santiago"],
+    "features": []
   }
 ]

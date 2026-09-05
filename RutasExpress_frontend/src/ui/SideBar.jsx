@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../features/auth/AuthContext";
+import { getInitials } from "../utils/getInitials";
 import logo from "../assets/logo.png";
 import {
     HomeIcon,
@@ -20,15 +21,6 @@ const navItems = [
     { to: "/reports", label: "Reportería", Icon: LayersIcon, roles: ["Admin"] },
     { to: "/audit", label: "Auditoría", Icon: ClipboardIcon, roles: ["Admin", "Auditor"] },
 ];
-
-function getInitials(name = "") {
-    return name
-        .split(" ")
-        .filter(Boolean)
-        .slice(0, 2)
-        .map((w) => w[0]?.toUpperCase())
-        .join("");
-}
 
 export function Sidebar({ darkMode, onToggleDark }) {
     const { user, hasAnyRole, logout } = useAuth();

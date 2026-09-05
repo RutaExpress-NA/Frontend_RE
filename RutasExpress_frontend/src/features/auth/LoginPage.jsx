@@ -1,7 +1,6 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "./AuthContext";
-import { useDarkMode } from "../../hooks/useDarkMode";
-
+import { useTheme } from "../../context/ThemeContext";
 import { Button } from "../../ui/Button";
 import { Card } from "../../ui/Card";
 import { SunIcon, MoonIcon } from "../../ui/Icons";
@@ -12,7 +11,7 @@ export function LoginPage() {
     const { login, __mockUsers } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
-    const [darkMode, toggleDarkMode] = useDarkMode();
+    const { darkMode, toggleDarkMode } = useTheme();
 
     function handleMicrosoftLogin() {
         login(__mockUsers[0].id);
