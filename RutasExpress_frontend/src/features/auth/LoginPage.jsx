@@ -13,6 +13,8 @@ export function LoginPage() {
     const location = useLocation();
     const { darkMode, toggleDarkMode } = useTheme();
 
+    const showExpiredNotice = location.state?.sessionExpired === true;
+
     function handleMicrosoftLogin() {
         login(__mockUsers[0].id);
         const from = location.state?.from?.pathname || "/dashboard";
@@ -28,6 +30,12 @@ export function LoginPage() {
 
             <LoginBackground />
 
+            {showExpiredNotice && (
+            <div className="rex-login-card__expired-notice">
+                Tu sesión anterior expiró por inactividad. Inicia sesión nuevamente.
+            </div>
+            )}
+
             <Card padding="lg" className="rex-login-card">
                 <div className="rex-login-card__header">
                     <img src={logo} alt="Rutas Express" className="rex-login-card__logo" />
@@ -41,19 +49,6 @@ export function LoginPage() {
                 <Button variant="primary" fullWidth size="lg" icon={<MicrosoftIcon />} onClick={handleMicrosoftLogin}>
                     Iniciar sesión con Microsoft
                 </Button>
-
-                <div className="rex-login-card__divider">
-                    <span>o</span>
-                </div>
-
-                <fieldset disabled className="rex-login-card__fieldset">
-                    <input type="email" placeholder="correo@empresa.com" className="rex-login-card__input" />
-                    <input type="password" placeholder="Contraseña" className="rex-login-card__input" />
-                    <Button variant="danger" fullWidth size="lg" iconRight="→">
-                        Entrar
-                    </Button>
-                </fieldset>
-                <p className="rex-login-card__disabled-note">Disponible próximamente o no nose si pasa edito aca</p>
             </Card>
         </div>
     );
