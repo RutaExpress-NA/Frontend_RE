@@ -1,31 +1,35 @@
-/* eslint-disable react-hooks/purity */
-/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-hooks/set-state-in-effect */
-import { createContext, useContext, useState, useEffect, useRef} from "react";
-import mockUsers from "../../mocks/users.json";
-/**
- * AuthContext (MOCK)
- * ------------------
- * Este contexto imita a propósito la forma final que va a tener
- * @azure/msal-react cuando conectemos Azure AD de verdad
- */
+/* eslint-disable react-refresh/only-export-components */
+import { createContext, useContext, useState, useEffect, useRef, useCallback } from "react";
+import { useMsal, useIsAuthenticated } from "@azure/msal-react";
+import { InteractionStatus } from "@azure/msal-browser";
+import { loginRequest } from "../../authConfig";
 
 const AuthContext = createContext(null);
 
-const MOCK_SESSION_KEY = "rutaexpress_mock_user_id";
+//avisa 1 minuto antes
+const SESSION_WARNING_SECONDS = 60;
+const RENEWED_MESSAGE_SECONDS = 4;
 
-const MOCK_TOKEN_LIFETIME_SECONDS = 20 * 60; // 20 minutos
-const SESSION_WARNING_SECONDS = 60; // avisa 1 minuto antes de expirar
-const RENEWED_MESSAGE_SECONDS = 2.5; // cuánto dura el mensaje "renovado"
+//Decodifica el payload de un JWT sin librerías externas
+function decodeJwt(token) {
+    try {
+        const payload = token.split(".")[1];
+        const json = atob(payload.replace(/-/g, "+").replace(/_/g, "/"));
+        return JSON.parse(json);
+    } catch {
+        return {};
+    }
+}
 
 export function AuthProvider({ children }) {
+    const { instance, accounts, inProgress } = useMsal();
+    const isMsalAuthenticated = useIsAuthenticated();
+
     const [user, setUser] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
-
-    // 'hidden' | 'warning' | 'expired' | 'renewed'
-    const [sessionState, setSessionState] = useState("hidden");
     const [expiresOn, setExpiresOn] = useState(null);
-    const [expiredNotice, setExpiredNotice] = useState(false);
+    const [sessionState, setSessionState] = useState("hidden"); // 'hidden' | 'warning' | 'renewed'
 
     const warningTimerRef = useRef(null);
     const expiryTimerRef = useRef(null);
@@ -39,16 +43,12 @@ export function AuthProvider({ children }) {
 
     function scheduleTimers(expiryDate) {
         clearAllTimers();
-
         const msUntilExpiry = expiryDate.getTime() - Date.now();
         const msUntilWarning = msUntilExpiry - SESSION_WARNING_SECONDS * 1000;
 
         if (msUntilWarning > 0) {
-        warningTimerRef.current = setTimeout(() => {
-            setSessionState("warning");
-        }, msUntilWarning);
+            warningTimerRef.current = setTimeout(() => setSessionState("warning"), msUntilWarning);
         } else {
-            // Por si acaso el tiempo configurado es menor al margen de aviso
             setSessionState("warning");
         }
 
@@ -57,100 +57,94 @@ export function AuthProvider({ children }) {
         }, Math.max(msUntilExpiry, 0));
     }
 
-    function handleExpiry() {
-        clearAllTimers();
-        localStorage.removeItem(MOCK_SESSION_KEY);
-        setUser(null);
-        setExpiresOn(null);
+    function applyTokenResult(result) {
+        const claims = decodeJwt(result.accessToken);
+        setUser({
+            id: result.account.homeAccountId,
+            name: result.account.name,
+            email: result.account.username,
+            roles: claims.roles || [],
+        });
+        setExpiresOn(result.expiresOn);
+        scheduleTimers(result.expiresOn);
         setSessionState("hidden");
-        setExpiredNotice(true);
     }
 
-    useEffect(() => {
-        const savedUserId = localStorage.getItem(MOCK_SESSION_KEY);
-        if (savedUserId) {
-            const found = mockUsers.find((u) => u.id === savedUserId);
-            if (found) {
-                setUser(found);
-                const newExpiresOn = new Date(Date.now() + MOCK_TOKEN_LIFETIME_SECONDS * 1000);
-                setExpiresOn(newExpiresOn);
-                scheduleTimers(newExpiresOn);
-            }
-        }
-        setIsLoading(false);
-        return () => clearAllTimers();
-    }, []);
-
-    /**
-     * login(userId)
-     * En la versión real, esto dispararía msalInstance.loginRedirect() o
-     * loginPopup(). Por ahora, simplemente "activa" a un usuario del mock.
-     *
-     * Si no se pasa userId, inicia sesión con el primer usuario del JSON.
-     */
-    function login(userId) {
-        const target = userId
-                    ? mockUsers.find((u) => u.id === userId)
-                    : mockUsers[0];
-
-        if (!target) {
-            console.warn(`AuthContext (mock): no existe un usuario con id "${userId}"`);
+    // pedir otkrn
+    const syncFromMsal = useCallback(async () => {
+        const account = instance.getActiveAccount() || accounts[0];
+        if (!account) {
+            setUser(null);
+            setIsLoading(false);
             return;
         }
 
-        localStorage.setItem(MOCK_SESSION_KEY, target.id);
-        setUser(target);
-        setSessionState("hidden");
+        try {
+            const result = await instance.acquireTokenSilent({ ...loginRequest, account });
+            applyTokenResult(result);
+        } catch (err) {
+            console.warn("No se pudo obtener el token en silencio:", err);
+            setUser(null);
+        } finally {
+            setIsLoading(false);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [instance, accounts]);
 
-        const newExpiresOn = new Date(Date.now() + MOCK_TOKEN_LIFETIME_SECONDS * 1000);
-        setExpiresOn(newExpiresOn);
-        scheduleTimers(newExpiresOn);
-    }
+    useEffect(() => {
+        if (inProgress !== InteractionStatus.None) return;
+        syncFromMsal();
+        return () => clearAllTimers();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [inProgress, isMsalAuthenticated]);
 
-    /**
-     * logout()
-     * En la versión real, esto llamaría msalInstance.logoutRedirect().
-     */
-    function logout() {
-        localStorage.removeItem(MOCK_SESSION_KEY);
+    // El "session timer" propio de la app (no de MSAL) llegó a 0
+    function handleExpiry() {
+        clearAllTimers();
         setUser(null);
         setExpiresOn(null);
         setSessionState("hidden");
+        instance.logoutRedirect().catch(() => { });
     }
 
-    function hasRole(role) {
-        if (!user) return false;
-        return user.roles.includes(role);
+    function login() {
+        instance.loginRedirect(loginRequest);
     }
 
-    function renewSession() {
-        const newExpiresOn = new Date(Date.now() + MOCK_TOKEN_LIFETIME_SECONDS * 1000);
-        setExpiresOn(newExpiresOn);
-        scheduleTimers(newExpiresOn);
-        setSessionState("renewed");
-
-        renewedTimerRef.current = setTimeout(() => {
-        setSessionState("hidden");
-        }, RENEWED_MESSAGE_SECONDS * 1000);
+    function logout() {
+        clearAllTimers();
+        instance.logoutRedirect();
     }
 
-    function clearExpiredNotice() {
-        setExpiredNotice(false);
+    //pide token
+    async function renewSession() {
+        const account = instance.getActiveAccount();
+        try {
+            const result = await instance.acquireTokenSilent({ ...loginRequest, account });
+            applyTokenResult(result);
+            setSessionState("renewed");
+            renewedTimerRef.current = setTimeout(() => setSessionState("hidden"), RENEWED_MESSAGE_SECONDS * 1000);
+        } catch (err) {
+            console.warn("Renovación silenciosa falló, se requiere login interactivo.", err);
+            handleExpiry();
+        }
     }
 
     function hideSessionModal() {
         clearTimeout(renewedTimerRef.current);
         setSessionState("hidden");
     }
-    /**
-     * forceExpireSoon()
-     * SOLO PARA DESARROLLO: fuerza que la sesión expire en unos
-     * segundos, para poder probar el modal sin esperar 20 minutos.
-     */
+
+    // Solo para probar el modal sin esperar el tiempo real de expiración
     function forceExpireSoon() {
+        if (!expiresOn) return;
         const soon = new Date(Date.now() + (SESSION_WARNING_SECONDS + 5) * 1000);
-        setExpiresOn(soon);
         scheduleTimers(soon);
+    }
+
+    function hasRole(role) {
+        if (!user) return false;
+        return user.roles.includes(role);
     }
 
     function hasAnyRole(roles = []) {
@@ -166,27 +160,20 @@ export function AuthProvider({ children }) {
         logout,
         hasRole,
         hasAnyRole,
-        // Lista completa de usuarios mock, útil solo para un selector de
-        // pruebas en desarrollo (ver DevRoleSwitcher). Se puede quitar
-        // cuando conectemos Azure
-        __mockUsers: mockUsers,
-        // Expiración de sesión
         sessionState,
         expiresOn,
         renewSession,
-        expiredNotice,
-        clearExpiredNotice,
         hideSessionModal,
         forceExpireSoon,
     };
+
     return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
-// eslint-disable-next-line react-refresh/only-export-components
 export function useAuth() {
     const context = useContext(AuthContext);
     if (!context) {
-        throw new Error("<AuthProvider>");
+        throw new Error("useAuth debe usarse dentro de un <AuthProvider>");
     }
     return context;
 }

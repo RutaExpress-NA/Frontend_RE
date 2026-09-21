@@ -1,4 +1,4 @@
-import { useNavigate, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { useAuth } from "./AuthContext";
 import { useTheme } from "../../context/ThemeContext";
 import { Button } from "../../ui/Button";
@@ -8,17 +8,14 @@ import { LoginBackground } from "../../ui/LoginBackground";
 import logo from "../../assets/logo.png";
 
 export function LoginPage() {
-    const { login, __mockUsers } = useAuth();
-    const navigate = useNavigate();
+    const { login } = useAuth();
     const location = useLocation();
     const { darkMode, toggleDarkMode } = useTheme();
 
     const showExpiredNotice = location.state?.sessionExpired === true;
 
     function handleMicrosoftLogin() {
-        login(__mockUsers[0].id);
-        const from = location.state?.from?.pathname || "/dashboard";
-        navigate(from, { replace: true });
+    login(); 
     }
 
     return (
