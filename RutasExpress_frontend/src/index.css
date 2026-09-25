@@ -2542,6 +2542,18 @@ body {
   flex-shrink: 0;
 }
 
+.rex-user-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: transform 0.15s ease;
+}
+
+.rex-user-avatar:hover {
+  transform: scale(1.08);
+}
+
 .rex-passport__initials {
   font-family: 'Courier Prime', monospace;
   font-size: 40px;
@@ -2780,4 +2792,131 @@ body {
   display: flex;
   flex-direction: column;
   gap: 10px;
+}
+
+/* ─── Formularios genéricos ───────────────────────────── */
+
+.rex-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.rex-form__section-title {
+  margin-top: 12px;
+}
+
+.rex-form__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+@media (max-width: 600px) {
+  .rex-form__row {
+    grid-template-columns: 1fr;
+  }
+}
+
+.rex-form__field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.rex-form__field label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+.rex-form__field input,
+.rex-form__field select {
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-size: 14px;
+  font-weight: 600;
+  background: var(--surface2);
+  color: var(--txt);
+}
+
+.rex-form__field input:focus,
+.rex-form__field select:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.rex-form__error {
+  color: var(--tone-danger-text);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.rex-form__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+/* ─── Selector de actualizar estado (detalle de envío) ──── */
+
+.rex-status-update {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.rex-status-update__select {
+  flex: 1;
+  min-width: 200px;
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-size: 14px;
+  font-weight: 600;
+  background: var(--surface2);
+  color: var(--txt);
+}
+
+.rex-error-boundary {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: var(--bg);
+}
+
+.rex-error-boundary__card {
+  max-width: 420px;
+  text-align: center;
+}
+
+.rex-error-boundary__title {
+  font-family: 'Courier Prime', monospace;
+  font-size: 22px;
+  color: var(--txt);
+  margin-bottom: 10px;
+}
+
+.rex-error-boundary__text {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+
+.rex-error-boundary__details {
+  text-align: left;
+  background: var(--surface2);
+  border-radius: 12px;
+  padding: 12px;
+  font-size: 11px;
+  color: var(--tone-danger-text);
+  overflow-x: auto;
+  margin-bottom: 16px;
+  white-space: pre-wrap;
+  word-break: break-word;
 }

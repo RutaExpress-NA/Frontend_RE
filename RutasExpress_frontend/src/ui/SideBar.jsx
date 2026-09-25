@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../features/auth/AuthContext";
-import { getInitials } from "../utils/getInitials";
+import { UserAvatar } from "../ui/UserAvatar";
 import logo from "../assets/logo.png";
 import {
     HomeIcon,
@@ -65,7 +65,7 @@ export function Sidebar({ darkMode, onToggleDark }) {
                 </button>
 
                 <NavLink to="/profile" className="rex-sidebar__profile">
-                    <span className="rex-sidebar__avatar">{getInitials(user?.name)}</span>
+                    <UserAvatar name={user?.email || user?.name} size={36} className="rex-sidebar__avatar" />
                     <span className="rex-sidebar__profile-info">
                         <span className="rex-sidebar__profile-name">{user?.name}</span>
                         <span className="rex-sidebar__profile-role">{user?.roles?.join(", ")}</span>

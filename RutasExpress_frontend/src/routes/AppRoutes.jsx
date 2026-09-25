@@ -20,6 +20,7 @@ import { CatalogDetailPage } from "../features/catalog/CatalogDetailPage";
 import { ReportsPage } from "../features/reports/ReportsPage";
 import { AuditPage } from "../features/audit/AuditPage";
 import { ProfilePage } from "../features/profile/ProfilePage";
+import { ShipmentCreatePage } from "../features/shipments/ShipmentCreatePage";
 
 export function AppRoutes() {
     return (
@@ -57,6 +58,15 @@ export function AppRoutes() {
                     element={
                         <RoleGuard roles={["Admin", "Despachador", "Cliente"]}>
                             <ShipmentDetailPage />
+                        </RoleGuard>
+                    }
+                />
+
+                <Route
+                    path="/shipments/new"
+                    element={
+                        <RoleGuard roles={["Admin", "Despachador", "Cliente"]}>
+                            <ShipmentCreatePage />
                         </RoleGuard>
                     }
                 />

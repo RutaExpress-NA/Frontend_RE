@@ -1,12 +1,10 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { PublicClientApplication, EventType } from "@azure/msal-browser";
+import { EventType } from "@azure/msal-browser";
 import { MsalProvider } from "@azure/msal-react";
-import { msalConfig } from "./authConfig";
+import { msalInstance } from "./msalInstance";
 import App from "./App.jsx";
 import "./index.css";
-
-const msalInstance = new PublicClientApplication(msalConfig);
 
 function renderApp() {
   createRoot(document.getElementById("root")).render(
@@ -26,9 +24,7 @@ msalInstance
       msalInstance.setActiveAccount(response.account);
     } else {
       const accounts = msalInstance.getAllAccounts();
-      if (accounts.length > 0) {
-        msalInstance.setActiveAccount(accounts[0]);
-      }
+      if (accounts.length > 0) msalInstance.setActiveAccount(accounts[0]);
     }
 
     msalInstance.addEventCallback((event) => {

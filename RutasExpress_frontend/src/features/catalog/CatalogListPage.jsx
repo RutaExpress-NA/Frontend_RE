@@ -1,11 +1,25 @@
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { ServiceCard } from "./ServiceCard";
-
-// REMPLAZAR BACKEND
-import catalogData from "../../mocks/catalog-services.json";
+import { getCatalog } from "../../services/catalogService";
 
 export function CatalogListPage() {
     const navigate = useNavigate();
+    const [catalog, setCatalog] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        let cancelled = false;
+        getCatalog().then((data) => {
+            if (!cancelled) {
+                setCatalog(data);
+                setIsLoading(false);
+            }
+        });
+        return () => {
+            cancelled = true;
+        };
+    }, []);
 
     return (
         <div className="rex-catalog-page">
@@ -16,11 +30,16 @@ export function CatalogListPage() {
                 </p>
             </header>
 
-            <div className="rex-catalog-grid">
-                {catalogData.map((service) => (
-                    <ServiceCard key={service.id} service={service} onClick={() => navigate(`/catalog/${service.id}`)}/>
-                ))}
-            </div>
+            {isLoading ? (
+                <p>Cargando catálogo...</p>
+            ) : (
+                <div className="rex-catalog-grid">
+                    {catalog.map((service) => (
+                        <ServiceCard key={service.id} service={service}
+                            onClick={() => navigate(`/catalog/${service.id}`)}/>
+                    ))}
+                </div>
+            )}
         </div>
     );
 }

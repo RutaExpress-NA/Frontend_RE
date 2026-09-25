@@ -1,16 +1,15 @@
+/* eslint-disable react-hooks/set-state-in-effect */
+import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Card } from "../../ui/Card";
 import { Button } from "../../ui/Button";
 import { Chip } from "../../ui/Chip";
 import { StatusBadge } from "../../ui/StatusBadge";
 import { ProgressBar } from "../../ui/ProgressBar";
-import { ChevronLeftIcon, PackageIcon, TruckIcon, CheckIcon, MapPinIcon} from "../../ui/Icons";
-
-// REMPLAZR BACKENd
-import catalogData from "../../mocks/catalog-services.json";
+import { ChevronLeftIcon, PackageIcon, TruckIcon, CheckIcon, MapPinIcon } from "../../ui/Icons";
+import { getCatalogServiceById } from "../../services/catalogService";
 import vehiclesData from "../../mocks/vehicles.json";
 
-//MAKE BETTAR
 const VEHICLE_ICON = {
     MOTO: <PackageIcon size={40} />,
     FURGON: <TruckIcon size={40} />,
@@ -20,11 +19,30 @@ const VEHICLE_ICON = {
 export function CatalogDetailPage() {
     const { id } = useParams();
     const navigate = useNavigate();
+    const [service, setService] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
 
-    const service = catalogData.find((s) => s.id === id);
-    const vehicle = service
-        ? vehiclesData.find((v) => v.vehicleType === service.vehicleTypeRequired)
-        : null;
+    useEffect(() => {
+        let cancelled = false;
+        setIsLoading(true);
+        getCatalogServiceById(id).then((data) => {
+            if (!cancelled) {
+                setService(data);
+                setIsLoading(false);
+            }
+        });
+        return () => {
+            cancelled = true;
+        };
+    }, [id]);
+
+    if (isLoading) {
+        return (
+            <div className="rex-catalog-detail">
+                <p>Cargando servicio...</p>
+            </div>
+        );
+    }
 
     if (!service) {
         return (
@@ -37,20 +55,21 @@ export function CatalogDetailPage() {
         );
     }
 
+    const vehicle = vehiclesData.find((v) => v.vehicleType === service.vehicleTypeRequired);
+
     return (
         <div className="rex-catalog-detail">
             <header className="rex-catalog-detail__breadcrumb">
-                <button type="button" className="rex-shipment-detail__back" onClick={() => navigate("/catalog")}>
+                <button type="button" className="rex-shipment-detail__back"
+                    onClick={() => navigate("/catalog")}>
                     <ChevronLeftIcon size={16} /> Catálogo
                 </button>
-                    <span className="rex-shipment-detail__separator">·</span>
+                <span className="rex-shipment-detail__separator">·</span>
                 <span>{service.name}</span>
             </header>
 
             <Card padding="lg" className="rex-catalog-hero">
-                <div className="rex-catalog-hero__icon">
-                    {VEHICLE_ICON[service.vehicleTypeRequired]}
-                </div>
+                <div className="rex-catalog-hero__icon">{VEHICLE_ICON[service.vehicleTypeRequired]}</div>
                 <div className="rex-catalog-hero__main">
                     <div className="rex-catalog-hero__top">
                         <h1 className="rex-catalog-hero__name">{service.name}</h1>
@@ -75,11 +94,7 @@ export function CatalogDetailPage() {
             <div className="rex-shipment-detail__grid">
                 <Card padding="lg">
                     <h2 className="rex-panel__title">Características</h2>
-                    {service.features.length === 0 ? (
-                        <p className="rex-catalog-detail__empty">
-                            Este servicio no tiene características registradas.
-                        </p>
-                    ) : (
+                    {service.features?.length ? (
                         <ul className="rex-feature-list">
                             {service.features.map((feature) => (
                                 <li key={feature} className="rex-feature-list__item">
@@ -88,6 +103,10 @@ export function CatalogDetailPage() {
                                 </li>
                             ))}
                         </ul>
+                    ) : (
+                        <p className="rex-catalog-detail__empty">
+                            Este servicio no tiene características registradas.
+                        </p>
                     )}
                 </Card>
 
@@ -96,11 +115,10 @@ export function CatalogDetailPage() {
                         <MapPinIcon size={16} className="rex-panel__title-icon" /> Cobertura
                     </h2>
                     <div className="rex-service-card__badges">
-                        {service.coverageCities.map((city) => (
+                        {service.coverageCities?.map((city) => (
                             <Chip key={city}>{city}</Chip>
                         ))}
                     </div>
-
                     {vehicle && (
                         <div className="rex-catalog-detail__capacity">
                             <ProgressBar label={`Capacidad ${vehicle.vehicleType.toLowerCase()}`}
@@ -119,7 +137,7 @@ export function CatalogDetailPage() {
                             Crea tu envío con {service.name} ahora mismo
                         </p>
                     </div>
-                    <Button variant="primary" onClick={() => { console.log("Crear envío con", service.id);}}>
+                    <Button variant="primary" onClick={() => console.log("Crear envío con", service.id)}>
                         Crear envío
                     </Button>
                 </Card>

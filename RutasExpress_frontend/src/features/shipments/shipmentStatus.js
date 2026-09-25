@@ -23,3 +23,16 @@ export const STATUS_STEPS = [
     "EN_RUTA",
     "ENTREGADO",
 ];
+
+export function getNextStatuses(currentStatus) {
+    const isFinal = currentStatus === "ENTREGADO" || currentStatus === "CANCELADO";
+    if (isFinal) return [];
+
+    const currentIndex = STATUS_STEPS.indexOf(currentStatus);
+    const nextInFlow = STATUS_STEPS[currentIndex + 1];
+
+    const options = [];
+    if (nextInFlow) options.push(nextInFlow);
+    options.push("CANCELADO");
+    return options;
+}

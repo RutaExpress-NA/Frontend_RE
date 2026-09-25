@@ -1,4 +1,5 @@
-import { useState, useMemo } from "react";
+/* eslint-disable react-hooks/set-state-in-effect */
+import { useState, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../auth/AuthContext";
 import { getVisibleShipments } from "./shipmentsScope";
@@ -9,9 +10,7 @@ import { FilterTabs } from "../../ui/FilterTabs";
 import { PlusIcon } from "../../ui/Icons";
 import { ShipmentRow } from "./ShipmentRow";
 import { STATUS_LABEL } from "./shipmentStatus";
-
-// REEMPLAZAR CUANDO BACKEND
-import shipmentsData from "../../mocks/shipments.json";
+import { getShipments } from "../../services/shipmentsService";
 
 const FILTER_OPTIONS = [
     { value: "ALL", label: "Todos" },
@@ -23,16 +22,37 @@ export function ShipmentsListPage() {
     const { user, hasRole } = useAuth();
     const [query, setQuery] = useState("");
     const [statusFilter, setStatusFilter] = useState("ALL");
+    const [allShipments, setAllShipments] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        let cancelled = false;
+        setIsLoading(true);
+        getShipments()
+        .then((data) => {
+            if (!cancelled) setAllShipments(data);
+        })
+        .catch((err) => {
+            console.error(err);
+            if (!cancelled) setError("No se pudieron cargar los envíos.");
+        })
+        .finally(() => {
+            if (!cancelled) setIsLoading(false);
+        });
+        return () => {
+        cancelled = true;
+        };
+    }, []);
 
     const scopedShipments = useMemo(
-        () => getVisibleShipments(shipmentsData, user, hasRole),
-        [user, hasRole]
+        () => getVisibleShipments(allShipments, user, hasRole),
+        [allShipments, user, hasRole]
     );
 
     const filtered = useMemo(() => {
         return scopedShipments.filter((s) => {
             const matchesStatus = statusFilter === "ALL" || s.status === statusFilter;
-
             const q = query.trim().toLowerCase();
             const matchesQuery = q === "" ||
                                 s.trackingCode.toLowerCase().includes(q) ||
@@ -48,15 +68,12 @@ export function ShipmentsListPage() {
                 <div>
                     <h1 className="rex-shipments-page__title">Envíos</h1>
                     <p className="rex-shipments-page__count">
-                    {filtered.length} resultados
-                    {hasRole("Cliente") && !hasRole("Admin") && !hasRole("Despachador")
-                    ? " · Tus envíos"
-                    : ""}
+                    {isLoading ? "Cargando..." : `${filtered.length} resultados`}
                     </p>
                 </div>
                 <Button variant="primary" icon={<PlusIcon size={16} />}
                     onClick={() => {
-                        console.log("Crear nuevo envío"); // CAMBIAR FUTURP
+                        navigate("/shipments/new");
                     }}> Nuevo Envío
                 </Button>
             </header>
@@ -69,10 +86,9 @@ export function ShipmentsListPage() {
 
             <Card padding="none">
                 <div className="rex-shipment-list">
-                    {filtered.length === 0 && (
-                        <p className="rex-shipments-page__empty">
-                            No se encontraron envíos.
-                        </p>
+                    {error && <p className="rex-shipments-page__empty">{error}</p>}
+                    {!isLoading && !error && filtered.length === 0 && (
+                        <p className="rex-shipments-page__empty">No se encontraron envíos con esos filtros.</p>
                     )}
                     {filtered.map((s) => (
                         <ShipmentRow key={s.id} shipment={s}
