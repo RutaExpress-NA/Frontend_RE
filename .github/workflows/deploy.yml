@@ -1,0 +1,96 @@
+name: Deploy Frontend RutaExpress
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Login to Amazon ECR
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Build Docker image
+        env:
+          ECR_REGISTRY: ${{ secrets.ECR_REGISTRY }}
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          echo "===================================="
+          echo " Construyendo imagen: rutaexpress-frontend"
+          echo " Tag: $IMAGE_TAG"
+          echo "===================================="
+          docker build --no-cache -t $ECR_REGISTRY/rutaexpress-frontend:$IMAGE_TAG \
+            --build-arg VITE_AZURE_CLIENT_ID=${{ secrets.VITE_AZURE_CLIENT_ID }} \
+            --build-arg VITE_AZURE_TENANT_ID=${{ secrets.VITE_AZURE_TENANT_ID }} \
+            --build-arg VITE_AZURE_REDIRECT_URI=${{ secrets.VITE_AZURE_REDIRECT_URI }} \
+            --build-arg VITE_API_SCOPE=${{ secrets.VITE_API_SCOPE }} \
+            --build-arg VITE_API_BASE_URL=${{ secrets.VITE_API_BASE_URL }} \
+            ./RutasExpress_frontend
+          echo ""
+          echo "Build completado."
+
+      - name: Push Docker image to ECR
+        env:
+          ECR_REGISTRY: ${{ secrets.ECR_REGISTRY }}
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          echo "===================================="
+          echo " Subiendo imagen a ECR..."
+          echo "===================================="
+          docker push $ECR_REGISTRY/rutaexpress-frontend:$IMAGE_TAG
+          echo ""
+          echo "Push completado: $ECR_REGISTRY/rutaexpress-frontend:$IMAGE_TAG"
+
+      - name: Update kubeconfig
+        run: |
+          echo "===================================="
+          echo " Conectando al cluster EKS: rutaexpress"
+          echo "===================================="
+          aws eks update-kubeconfig --region ${{ secrets.AWS_REGION }} --name rutaexpress
+
+      - name: Deploy to EKS
+        env:
+          ECR_REGISTRY: ${{ secrets.ECR_REGISTRY }}
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          echo "===================================="
+          echo " Actualizando deployment/rutaexpress-frontend"
+          echo " Nueva imagen: $ECR_REGISTRY/rutaexpress-frontend:$IMAGE_TAG"
+          echo "===================================="
+          kubectl set image deployment/rutaexpress-frontend frontend=$ECR_REGISTRY/rutaexpress-frontend:$IMAGE_TAG -n rutaexpress
+          echo ""
+          echo "Esperando rollout..."
+          kubectl rollout status deployment/rutaexpress-frontend -n rutaexpress --timeout=300s
+
+      - name: Mostrar resultado
+        run: |
+          echo "===================================="
+          echo " DEPLOY COMPLETADO: rutaexpress-frontend"
+          echo "===================================="
+          echo ""
+          echo "Pods en namespace rutaexpress (filtrado frontend):"
+          kubectl get pods -n rutaexpress -l app=rutaexpress-frontend -o wide
+          echo ""
+          echo "Detalle del deployment:"
+          kubectl get deployment rutaexpress-frontend -n rutaexpress
+          echo ""
+          HOSTNAME=$(kubectl get svc rutaexpress-frontend -n rutaexpress -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')
+          echo "FRONTEND DISPONIBLE EN: http://${HOSTNAME}"
+          echo ""
+          echo "Commit desplegado: ${{ github.sha }}"
+          echo "Fecha: $(date)"
+          echo "===================================="
