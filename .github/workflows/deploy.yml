@@ -34,7 +34,7 @@ jobs:
           echo " Construyendo imagen: rutaexpress-frontend"
           echo " Tag: $IMAGE_TAG"
           echo "===================================="
-          docker build --no-cache -t $ECR_REGISTRY/rutaexpress-frontend:$IMAGE_TAG \
+          docker build --no-cache -f Dockerfile -t $ECR_REGISTRY/rutaexpress-frontend:$IMAGE_TAG \
             --build-arg VITE_AZURE_CLIENT_ID=${{ secrets.VITE_AZURE_CLIENT_ID }} \
             --build-arg VITE_AZURE_TENANT_ID=${{ secrets.VITE_AZURE_TENANT_ID }} \
             --build-arg VITE_AZURE_REDIRECT_URI=${{ secrets.VITE_AZURE_REDIRECT_URI }} \
