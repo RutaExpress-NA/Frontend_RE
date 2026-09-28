@@ -40,7 +40,7 @@ jobs:
             --build-arg VITE_AZURE_REDIRECT_URI=${{ secrets.VITE_AZURE_REDIRECT_URI }} \
             --build-arg VITE_API_SCOPE=${{ secrets.VITE_API_SCOPE }} \
             --build-arg VITE_API_BASE_URL=${{ secrets.VITE_API_BASE_URL }} \
-            ./RutasExpress_frontend
+            .
           echo ""
           echo "Build completado."
 
@@ -90,7 +90,7 @@ jobs:
           kubectl get deployment rutaexpress-frontend -n rutaexpress
           echo ""
           HOSTNAME=$(kubectl get svc rutaexpress-frontend -n rutaexpress -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')
-          echo "FRONTEND DISPONIBLE EN: http://${HOSTNAME}"
+          echo "FRONTEND DISPONIBLE EN: http://${HOSTNAME} o https://3yde8tnez4.execute-api.us-east-1.amazonaws.com"
           echo ""
           echo "Commit desplegado: ${{ github.sha }}"
           echo "Fecha: $(date)"
