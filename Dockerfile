@@ -3,7 +3,7 @@ FROM node:20-alpine AS builder
 
 WORKDIR /app
 
-COPY RutasExpress_frontend/package.json ./
+COPY RutasExpress_frontend/package.json RutasExpress_frontend/package-lock.json ./
 RUN npm install
 
 ARG VITE_AZURE_CLIENT_ID
