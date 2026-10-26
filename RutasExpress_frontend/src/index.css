@@ -1456,8 +1456,8 @@ body {
 }
 
 .rex-stepper__node {
-  width: 46px;
-  height: 46px;
+  width: 52px;
+  height: 52px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1481,7 +1481,7 @@ body {
 
 .rex-stepper__label {
   margin-top: 8px;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 700;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -1490,27 +1490,51 @@ body {
   color: var(--faint);
 }
 
-.rex-stepper__label--completed,
-.rex-stepper__label--active {
-  color: var(--primary);
+.rex-stepper__label--neutral {
+  color: var(--tone-neutral-text);
 }
 
+.rex-stepper__label--info {
+  color: var(--tone-info-text);
+}
+
+.rex-stepper__label--success {
+  color: var(--tone-success-text);
+}
+
+.rex-stepper__label--warning {
+  color: var(--tone-warning-text);
+}
+
+.rex-stepper__label--danger,
 .rex-stepper__label--cancelled {
   color: var(--tone-danger-text);
 }
 
 .rex-stepper__connector {
   position: absolute;
-  top: 23px;
+  top: 26px;
   left: 50%;
   width: 100%;
-  height: 2px;
+  height: 4px;
   background: var(--surface2);
   z-index: 0;
 }
 
-.rex-stepper__connector--completed {
-  background: var(--primary);
+.rex-stepper__connector--info.rex-stepper__connector--completed {
+  background: var(--tone-info-text);
+}
+
+.rex-stepper__connector--success.rex-stepper__connector--completed {
+  background: var(--tone-success-text);
+}
+
+.rex-stepper__connector--warning.rex-stepper__connector--completed {
+  background: var(--tone-warning-text);
+}
+
+.rex-stepper__connector--neutral.rex-stepper__connector--completed {
+  background: var(--tone-neutral-text);
 }
 
 .rex-stepper__connector--cancelled {

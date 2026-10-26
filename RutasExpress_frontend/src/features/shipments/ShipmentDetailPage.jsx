@@ -70,11 +70,16 @@ export function ShipmentDetailPage() {
     }
 
     const isCancelled = shipment.status === "CANCELADO";
-    const currentIndex = STATUS_STEPS.indexOf(shipment.status);
+    const lastReachedStatus = isCancelled
+        ? [...(shipment.statusHistory || [])].reverse()
+            .find(({ status }) => status !== "CANCELADO")?.status
+        : shipment.status;
+    const currentIndex = STATUS_STEPS.indexOf(lastReachedStatus);
     const steps = STATUS_STEPS.map((key) => ({
         key,
         label: STATUS_LABEL[key],
-        icon: <ShipmentStatusIcon status={key} size={40} />,
+        tone: STATUS_TONE[key],
+        icon: <ShipmentStatusIcon status={key} size={46} />,
     }));
 
     const canManage = hasAnyRole(["Admin", "Despachador"]);
