@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../auth/AuthContext";
 import { Card } from "../../ui/Card";
 import { Button } from "../../ui/Button";
@@ -18,8 +18,12 @@ const EMPTY_FORM = {
 
 export function ShipmentCreatePage() {
     const navigate = useNavigate();
+    const location = useLocation();
     const { user } = useAuth();
-    const [form, setForm] = useState(EMPTY_FORM);
+    const [form, setForm] = useState(() => ({
+        ...EMPTY_FORM,
+        serviceId: location.state?.serviceId || "",
+    }));
     const [services, setServices] = useState([]);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [error, setError] = useState(null);
@@ -155,7 +159,9 @@ export function ShipmentCreatePage() {
                                 <option value="">Selecciona un servicio...</option>
                                 {services.map((s) => (
                                     <option key={s.id} value={s.id}>
-                                        {s.name} — ${s.price.toLocaleString("es-CL")}
+                                        {s.name} — {s.price == null
+                                            ? "Precio por coordinar"
+                                            : `$${s.price.toLocaleString("es-CL")}`}
                                     </option>
                                 ))}
                             </select>

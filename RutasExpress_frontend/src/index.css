@@ -22,6 +22,7 @@ body,
   --login-road-marking: rgba(255, 255, 255, 0.76);
   --login-particle: rgba(93, 106, 255, 0.42);
   --login-orbit: rgba(93, 106, 255, 0.12);
+  --page-header-art: url("./assets/headers/header_a.svg");
   --surface: #f1f1d4;
   --surface2: #e7e0cc;
   --border: #cabba6;
@@ -62,6 +63,7 @@ body,
   --login-road-marking: rgba(237, 232, 255, 0.28);
   --login-particle: rgba(173, 179, 255, 0.5);
   --login-orbit: rgba(173, 179, 255, 0.1);
+  --page-header-art: url("./assets/headers/header_b.svg");
   --surface: #252237;
   --surface2: #2E2A42;
   --border: #3A3655;
@@ -126,6 +128,20 @@ body {
 }
 
 /* ─── App Layout ────────────────────────────────────── */
+.rex-page-header {
+  box-sizing: border-box;
+  min-height: 160px;
+  padding: 28px 32px 44px;
+  margin-bottom: 24px;
+  background-color: var(--surface);
+  background-image:
+    var(--page-header-art),
+    linear-gradient(var(--surface), var(--surface));
+  background-position: center bottom, center;
+  background-repeat: repeat-x, no-repeat;
+  background-size: auto 100px, 100% 100%;
+}
+
 .rex-app-layout {
   display: flex;
   height: 100vh;
@@ -948,6 +964,16 @@ body {
   box-sizing: border-box;
 }
 
+.rex-dashboard__header.rex-page-header {
+  max-width: none;
+  margin: 0 0 8px;
+}
+
+.rex-page-header:not(.rex-dashboard__header) {
+  width: calc(100% + 64px);
+  margin: -32px -32px 24px;
+}
+
 .rex-dashboard-wrapper {
   display: flex;
   flex-direction: column;
@@ -957,10 +983,10 @@ body {
 
 .rex-dashboard__title {
   font-family: 'Courier Prime', monospace;
-  font-size: 28px;
+  font-size: 30px;
   font-weight: 700;
   color: var(--txt);
-  margin-bottom: 4px;
+  margin-bottom: 6px;
   letter-spacing: -0.5px;
 }
 
@@ -998,10 +1024,10 @@ body {
 
 .rex-dashboard__title {
   font-family: 'Courier Prime', monospace;
-  font-size: 28px;
+  font-size: 30px;
   font-weight: 700;
   color: var(--txt);
-  margin: 0;
+  margin: 0 0 2px;
   letter-spacing: -0.5px;
   min-height: 36px;
 }
@@ -1031,7 +1057,7 @@ body {
 
 @media (max-width: 768px) {
   .rex-dashboard__title {
-    font-size: 24px;
+    font-size: 26px;
   }
 
   .rex-dashboard__subtitle {
@@ -2002,6 +2028,7 @@ body {
 
 .rex-search-input__field {
   width: 100%;
+  box-sizing: border-box;
   padding: 10px 14px 10px 40px;
   border: 2px solid var(--border);
   border-radius: 999px;
@@ -2074,9 +2101,9 @@ body {
 
 .rex-shipments-page__title {
   font-family: 'Courier Prime', monospace;
-  font-size: 26px;
+  font-size: 28px;
   color: var(--txt);
-  margin-bottom: 4px;
+  margin-bottom: 6px;
 }
 
 .rex-shipments-page__count {
@@ -2119,9 +2146,9 @@ body {
 
 .rex-audit-page__title {
   font-family: 'Courier Prime', monospace;
-  font-size: 26px;
+  font-size: 28px;
   color: var(--txt);
-  margin-bottom: 4px;
+  margin-bottom: 6px;
 }
 
 .rex-audit-page__subtitle {
@@ -2438,9 +2465,9 @@ body {
 
 .rex-catalog-page__title {
   font-family: 'Courier Prime', monospace;
-  font-size: 26px;
+  font-size: 28px;
   color: var(--txt);
-  margin-bottom: 4px;
+  margin-bottom: 6px;
 }
 
 .rex-catalog-page__subtitle {
@@ -2756,11 +2783,19 @@ body {
   padding: 32px;
 }
 
+@media (max-width: 700px) {
+  .rex-page-header {
+    min-height: 140px;
+    padding: 24px 20px 38px;
+    background-size: auto 100px, 100% 100%;
+  }
+}
+
 .rex-reports-page__title {
   font-family: 'Courier Prime', monospace;
-  font-size: 26px;
+  font-size: 28px;
   color: var(--txt);
-  margin-bottom: 4px;
+  margin-bottom: 6px;
 }
 
 .rex-reports-page__subtitle {

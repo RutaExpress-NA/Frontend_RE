@@ -64,7 +64,7 @@ export function ShipmentsListPage() {
 
     return (
         <div className="rex-shipments-page">
-            <header className="rex-shipments-page__header">
+            <header className="rex-shipments-page__header rex-page-header">
                 <div>
                     <h1 className="rex-shipments-page__title">Envíos</h1>
                     <p className="rex-shipments-page__count">

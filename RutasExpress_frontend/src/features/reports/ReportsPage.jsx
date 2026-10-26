@@ -57,7 +57,7 @@ export function ReportsPage() {
 
     return (
         <div className="rex-reports-page">
-            <header className="rex-reports-page__header">
+            <header className="rex-reports-page__header rex-page-header">
                 <h1 className="rex-reports-page__title">Reportería</h1>
                 <p className="rex-reports-page__subtitle">
                     Panel de KPIs de la red · Últimas 24 horas

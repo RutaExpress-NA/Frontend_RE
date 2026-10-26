@@ -141,7 +141,10 @@ export function CatalogDetailPage() {
                             Crea tu envío con {service.name} ahora mismo
                         </p>
                     </div>
-                    <Button variant="primary" onClick={() => console.log("Crear envío con", service.id)}>
+                    <Button
+                        variant="primary"
+                        onClick={() => navigate("/shipments/new", { state: { serviceId: service.id } })}
+                    >
                         Crear envío
                     </Button>
                 </Card>
