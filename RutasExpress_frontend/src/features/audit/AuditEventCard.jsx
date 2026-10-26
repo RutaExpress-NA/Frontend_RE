@@ -1,12 +1,11 @@
 import { STATUS_LABEL, STATUS_TONE } from "../shipments/shipmentStatus";
-import { STATUS_ICON } from "../shipments/statusIcons";
+import { ShipmentStatusIcon } from "../shipments/ShipmentStatusIcon";
 import { getUserName } from "../../services/usersService";
 import { formatDateTime } from "../../utils/formatDateTime";
 
 export function AuditEventCard({ event, isLast }) {
     const isCreation = event.eventType === "SHIPMENT_CREATED";
     const tone = STATUS_TONE[event.toStatus] || "neutral";
-    const icon = STATUS_ICON[event.toStatus];
     const title = isCreation ? "Envío creado" : STATUS_LABEL[event.toStatus];
 
     const detail = isCreation
@@ -16,7 +15,7 @@ export function AuditEventCard({ event, isLast }) {
     return (
         <div className="rex-audit-event">
             <div className={`rex-audit-event__icon rex-audit-event__icon--${tone}`}>
-                {icon}
+                <ShipmentStatusIcon status={event.toStatus} size={42} />
             </div>
             <div className={`rex-audit-event__card ${isLast ? "rex-audit-event__card--last" : ""}`}>
                 <div className="rex-audit-event__top">

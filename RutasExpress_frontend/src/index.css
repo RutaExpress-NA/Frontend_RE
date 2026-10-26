@@ -9,6 +9,8 @@ body,
 
 :root {
   --bg: #ede8df;
+  --bg-texture-overlay: rgba(237, 232, 223, 0.78);
+  --page-background: linear-gradient(var(--bg-texture-overlay), var(--bg-texture-overlay)), url("./assets/papel_textura.jpg") center / cover fixed;
   --surface: #f1f1d4;
   --surface2: #e7e0cc;
   --border: #cabba6;
@@ -37,6 +39,7 @@ body,
 
 .dark {
   --bg: #1C1928;
+  --bg-texture-overlay: rgba(28, 25, 40, 0.9);
   --surface: #252237;
   --surface2: #2E2A42;
   --border: #3A3655;
@@ -65,7 +68,7 @@ body,
 
 body {
   font-family: 'Nunito', sans-serif;
-  background-color: var(--bg);
+  background: var(--page-background);
   color: var(--txt);
   transition: background-color 0.3s, color 0.3s;
 }
@@ -347,7 +350,7 @@ body {
   align-items: center;
   justify-content: center;
   padding: 16px;
-  background: var(--bg);
+  background: var(--page-background);
 }
 
 .rex-login-page__dark-toggle {
@@ -541,7 +544,7 @@ body {
   align-items: center;
   justify-content: center;
   padding: 16px;
-  background: var(--bg);
+  background: var(--page-background);
 }
 
 .rex-error-page__card {
@@ -625,7 +628,7 @@ body {
   display: flex;
   flex-direction: column;
   width: 100%;
-  background: var(--bg);
+  background: transparent;
 }
 
 .rex-dashboard__title {
@@ -880,10 +883,9 @@ body {
 
 /* Icono con colores temáticos */
 .rex-shipment-row__icon {
-  width: 40px;
-  height: 40px;
-  min-width: 40px;
-  border-radius: 12px;
+  width: 42px;
+  height: 42px;
+  min-width: 42px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -892,32 +894,26 @@ body {
 }
 
 .rex-shipment-row__icon--neutral {
-  background: var(--tone-neutral-bg);
   color: var(--tone-neutral-text);
 }
 
 .rex-shipment-row__icon--info {
-  background: var(--tone-info-bg);
   color: var(--tone-info-text);
 }
 
 .rex-shipment-row__icon--success {
-  background: var(--tone-success-bg);
   color: var(--tone-success-text);
 }
 
 .rex-shipment-row__icon--warning {
-  background: var(--tone-warning-bg);
   color: var(--tone-warning-text);
 }
 
 .rex-shipment-row__icon--primary {
-  background: var(--tone-primary-bg);
   color: var(--tone-primary-text);
 }
 
 .rex-shipment-row__icon--danger {
-  background: var(--tone-danger-bg);
   color: var(--tone-danger-text);
 }
 
@@ -1042,9 +1038,9 @@ body {
   }
 
   .rex-shipment-row__icon {
-    width: 36px;
-    height: 36px;
-    font-size: 18px;
+    width: 42px;
+    height: 42px;
+    min-width: 42px;
   }
 
   .rex-shipment-row__code {
@@ -1133,38 +1129,9 @@ body {
 
 /* ─── ShipmentRow icon ──────────────────────────────── */
 .rex-shipment-row__icon {
-  width: 36px;
-  height: 36px;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
-.rex-shipment-row__icon--neutral {
-  background: var(--tone-neutral-bg);
-  color: var(--tone-neutral-text);
-}
-
-.rex-shipment-row__icon--info {
-  background: var(--tone-info-bg);
-  color: var(--tone-info-text);
-}
-
-.rex-shipment-row__icon--success {
-  background: var(--tone-success-bg);
-  color: var(--tone-success-text);
-}
-
-.rex-shipment-row__icon--warning {
-  background: var(--tone-warning-bg);
-  color: var(--tone-warning-text);
-}
-
-.rex-shipment-row__icon--danger {
-  background: var(--tone-danger-bg);
-  color: var(--tone-danger-text);
+  width: 42px;
+  height: 42px;
+  min-width: 42px;
 }
 
 /* ─── Actividad reciente ──────────────────────────────── */
@@ -1358,29 +1325,26 @@ body {
 }
 
 .rex-stepper__node {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
+  width: 42px;
+  height: 42px;
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1;
   flex-shrink: 0;
+  background: transparent;
 }
 
 .rex-stepper__node--completed,
 .rex-stepper__node--active {
-  background: var(--primary);
   color: var(--primary-contrast);
 }
 
 .rex-stepper__node--pending {
-  background: var(--surface2);
   color: var(--faint);
 }
 
 .rex-stepper__node--cancelled {
-  background: var(--tone-danger-bg);
   color: var(--tone-danger-text);
 }
 
@@ -1405,7 +1369,7 @@ body {
 
 .rex-stepper__connector {
   position: absolute;
-  top: 20px;
+  top: 21px;
   left: 50%;
   width: 100%;
   height: 2px;
@@ -1490,11 +1454,8 @@ body {
 }
 
 .rex-timeline__marker {
-  width: 36px;
-  height: 36px;
-  border: 2px solid;
-  border-radius: 50%;
-  background: var(--surface2);
+  width: 38px;
+  height: 38px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1506,7 +1467,7 @@ body {
 .rex-timeline__marker::after {
   content: "";
   position: absolute;
-  right: 38px;
+  right: 40px;
   top: 50%;
   width: 12px;
   height: 2.5px;
@@ -1517,33 +1478,21 @@ body {
 
 /* Tonos dinámicos */
 .rex-timeline__marker[data-tone="primary"] {
-  background: var(--tone-primary-bg);
-  border-color: var(--tone-primary-text);
   color: var(--tone-primary-text);
 }
 .rex-timeline__marker[data-tone="info"] {
-  background: var(--tone-info-bg);
-  border-color: var(--tone-info-text);
   color: var(--tone-info-text);
 }
 .rex-timeline__marker[data-tone="success"] {
-  background: var(--tone-success-bg);
-  border-color: var(--tone-success-text);
   color: var(--tone-success-text);
 }
 .rex-timeline__marker[data-tone="warning"] {
-  background: var(--tone-warning-bg);
-  border-color: var(--tone-warning-text);
   color: var(--tone-warning-text);
 }
 .rex-timeline__marker[data-tone="danger"] {
-  background: var(--tone-danger-bg);
-  border-color: var(--tone-danger-text);
   color: var(--tone-danger-text);
 }
 .rex-timeline__marker[data-tone="neutral"] {
-  background: var(--tone-neutral-bg);
-  border-color: var(--tone-neutral-text);
   color: var(--tone-neutral-text);
 }
 
@@ -1953,21 +1902,19 @@ body {
 }
 
 .rex-audit-event__icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border: 2px solid transparent;
+  width: 42px;
+  height: 42px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
 }
 
-.rex-audit-event__icon--neutral { background: var(--tone-neutral-bg); border-color: var(--tone-neutral-text); color: var(--tone-neutral-text); }
-.rex-audit-event__icon--info    { background: var(--tone-info-bg);    border-color: var(--tone-info-text);    color: var(--tone-info-text); }
-.rex-audit-event__icon--success { background: var(--tone-success-bg); border-color: var(--tone-success-text); color: var(--tone-success-text); }
-.rex-audit-event__icon--warning { background: var(--tone-warning-bg); border-color: var(--tone-warning-text); color: var(--tone-warning-text); }
-.rex-audit-event__icon--danger  { background: var(--tone-danger-bg);  border-color: var(--tone-danger-text);  color: var(--tone-danger-text); }
+.rex-audit-event__icon--neutral { color: var(--tone-neutral-text); }
+.rex-audit-event__icon--info    { color: var(--tone-info-text); }
+.rex-audit-event__icon--success { color: var(--tone-success-text); }
+.rex-audit-event__icon--warning { color: var(--tone-warning-text); }
+.rex-audit-event__icon--danger  { color: var(--tone-danger-text); }
 
 .rex-audit-event__card {
   flex: 1;
@@ -2886,7 +2833,7 @@ body {
   align-items: center;
   justify-content: center;
   padding: 24px;
-  background: var(--bg);
+  background: var(--page-background);
 }
 
 .rex-error-boundary__card {
