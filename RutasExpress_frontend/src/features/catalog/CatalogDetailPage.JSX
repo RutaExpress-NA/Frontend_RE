@@ -6,15 +6,10 @@ import { Button } from "../../ui/Button";
 import { Chip } from "../../ui/Chip";
 import { StatusBadge } from "../../ui/StatusBadge";
 import { ProgressBar } from "../../ui/ProgressBar";
-import { ChevronLeftIcon, PackageIcon, TruckIcon, CheckIcon, MapPinIcon } from "../../ui/Icons";
+import { ChevronLeftIcon, CheckIcon, MapPinIcon } from "../../ui/Icons";
 import { getCatalogServiceById } from "../../services/catalogService";
+import { getCatalogImage } from "./catalogImages";
 import vehiclesData from "../../mocks/vehicles.json";
-
-const VEHICLE_ICON = {
-    MOTO: <PackageIcon size={40} />,
-    FURGON: <TruckIcon size={40} />,
-    CAMION: <TruckIcon size={40} />,
-};
 
 export function CatalogDetailPage() {
     const { id } = useParams();
@@ -56,6 +51,7 @@ export function CatalogDetailPage() {
     }
 
     const vehicle = vehiclesData.find((v) => v.vehicleType === service.vehicleTypeRequired);
+    const image = getCatalogImage(service);
 
     return (
         <div className="rex-catalog-detail">
@@ -69,21 +65,29 @@ export function CatalogDetailPage() {
             </header>
 
             <Card padding="lg" className="rex-catalog-hero">
-                <div className="rex-catalog-hero__icon">{VEHICLE_ICON[service.vehicleTypeRequired]}</div>
+                <div className="rex-catalog-hero__image">
+                    <img src={image} alt={service.name} />
+                </div>
                 <div className="rex-catalog-hero__main">
                     <div className="rex-catalog-hero__top">
                         <h1 className="rex-catalog-hero__name">{service.name}</h1>
                         <div className="rex-catalog-hero__price">
-                            ${service.price.toLocaleString("es-CL")}
-                            <span className="rex-catalog-hero__price-suffix">por envío</span>
+                            {service.price == null
+                                ? "A cotizar"
+                                : `$${service.price.toLocaleString("es-CL")}`}
+                            {service.price != null && (
+                                <span className="rex-catalog-hero__price-suffix">por envío</span>
+                            )}
                         </div>
                     </div>
                     <p className="rex-catalog-hero__description">{service.description}</p>
                     <div className="rex-service-card__badges">
-                        <Chip>hasta {service.weightLimitKg} kg</Chip>
-                            <Chip>{service.etaWindowLabel}</Chip>
+                        {service.weightLimitKg != null && (
+                            <Chip>hasta {service.weightLimitKg} kg</Chip>
+                        )}
+                        {service.etaWindowLabel && <Chip>{service.etaWindowLabel}</Chip>}
                         <Chip>{service.vehicleTypeRequired}</Chip>
-                            <Chip>SLA {service.slaPercent}%</Chip>
+                        {service.slaPercent != null && <Chip>SLA {service.slaPercent}%</Chip>}
                     </div>
                     {!service.active && (
                         <StatusBadge label="Este servicio ya no está disponible" tone="danger" />
@@ -115,9 +119,9 @@ export function CatalogDetailPage() {
                         <MapPinIcon size={16} className="rex-panel__title-icon" /> Cobertura
                     </h2>
                     <div className="rex-service-card__badges">
-                        {service.coverageCities?.map((city) => (
+                        {service.coverageCities?.length ? service.coverageCities.map((city) => (
                             <Chip key={city}>{city}</Chip>
-                        ))}
+                        )) : <p className="rex-catalog-detail__empty">Cobertura a coordinar.</p>}
                     </div>
                     {vehicle && (
                         <div className="rex-catalog-detail__capacity">

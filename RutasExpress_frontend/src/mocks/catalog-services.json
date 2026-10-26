@@ -81,5 +81,39 @@
     "slaPercent": 80,
     "coverageCities": ["Santiago"],
     "features": []
+  },
+  {
+    "id": "svc-006",
+    "name": "Cold (Frío)",
+    "description": "Servicio para transportar productos que deben mantenerse fríos durante el día o en un horario programado.",
+    "price": null,
+    "active": true,
+    "popular": false,
+    "vehicleTypeRequired": "FURGON",
+    "weightLimitKg": null,
+    "etaWindowLabel": "Diurno o programado",
+    "slaPercent": null,
+    "coverageCities": [],
+    "features": [
+      "Transporte para productos que requieren mantenerse fríos",
+      "Disponible durante el día o con programación previa"
+    ]
+  },
+  {
+    "id": "svc-007",
+    "name": "Hot (Comida)",
+    "description": "Servicio de reparto de comida durante el día o en el horario que necesites.",
+    "price": null,
+    "active": true,
+    "popular": false,
+    "vehicleTypeRequired": "MOTO",
+    "weightLimitKg": null,
+    "etaWindowLabel": "Diurno o programado",
+    "slaPercent": null,
+    "coverageCities": [],
+    "features": [
+      "Reparto de comida durante el día",
+      "Posibilidad de programar la entrega para el horario que necesites"
+    ]
   }
 ]

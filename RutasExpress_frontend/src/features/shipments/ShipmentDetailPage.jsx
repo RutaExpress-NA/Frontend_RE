@@ -74,7 +74,7 @@ export function ShipmentDetailPage() {
     const steps = STATUS_STEPS.map((key) => ({
         key,
         label: STATUS_LABEL[key],
-        icon: <ShipmentStatusIcon status={key} />,
+        icon: <ShipmentStatusIcon status={key} size={40} />,
     }));
 
     const canManage = hasAnyRole(["Admin", "Despachador"]);
