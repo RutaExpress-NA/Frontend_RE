@@ -6,18 +6,11 @@ import { Card } from "../../ui/Card";
 import { Button } from "../../ui/Button";
 import { Stepper } from "../../ui/Stepper";
 import { StatusBadge } from "../../ui/StatusBadge";
-import { ChevronLeftIcon, PackageIcon, CheckIcon, ClockIcon, TruckIcon } from "../../ui/Icons";
+import { ChevronLeftIcon } from "../../ui/Icons";
 import { ShipmentTimeline } from "./ShipmentTimeline";
 import { STATUS_LABEL, STATUS_TONE, STATUS_STEPS, getNextStatuses } from "./shipmentStatus";
+import { ShipmentStatusIcon } from "./ShipmentStatusIcon";
 import { getShipmentById, updateShipmentStatus } from "../../services/shipmentsService";
-
-const STEP_ICONS = {
-    CREADO: <PackageIcon size={16} />,
-    ACEPTADO: <CheckIcon size={16} />,
-    EN_BODEGA: <ClockIcon size={16} />,
-    EN_RUTA: <TruckIcon size={16} />,
-    ENTREGADO: <CheckIcon size={16} />,
-};
 
 export function ShipmentDetailPage() {
     const { id } = useParams();
@@ -77,11 +70,16 @@ export function ShipmentDetailPage() {
     }
 
     const isCancelled = shipment.status === "CANCELADO";
-    const currentIndex = STATUS_STEPS.indexOf(shipment.status);
+    const lastReachedStatus = isCancelled
+        ? [...(shipment.statusHistory || [])].reverse()
+            .find(({ status }) => status !== "CANCELADO")?.status
+        : shipment.status;
+    const currentIndex = STATUS_STEPS.indexOf(lastReachedStatus);
     const steps = STATUS_STEPS.map((key) => ({
         key,
         label: STATUS_LABEL[key],
-        icon: STEP_ICONS[key],
+        tone: STATUS_TONE[key],
+        icon: <ShipmentStatusIcon status={key} size={46} />,
     }));
 
     const canManage = hasAnyRole(["Admin", "Despachador"]);

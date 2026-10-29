@@ -34,7 +34,7 @@ export function DashboardGreeting({ userName, showPeriodTabs = false }) {
   const capitalizedToday = today.charAt(0).toUpperCase() + today.slice(1);
 
   return (
-    <header className="rex-dashboard__header">
+    <header className="rex-dashboard__header rex-page-header">
       <div className="rex-dashboard__greeting-section">
         <h1 className="rex-dashboard__title">
           {greeting}

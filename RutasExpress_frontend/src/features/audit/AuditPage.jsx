@@ -73,7 +73,7 @@ export function AuditPage() {
 
     return (
         <div className="rex-audit-page">
-            <header className="rex-audit-page__header">
+            <header className="rex-audit-page__header rex-page-header">
                 <div>
                     <h1 className="rex-audit-page__title">Auditoría</h1>
                     <p className="rex-audit-page__subtitle">

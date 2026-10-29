@@ -1,5 +1,5 @@
 import { STATUS_LABEL, STATUS_TONE } from "./shipmentStatus";
-import { STATUS_ICON } from "./statusIcons";
+import { ShipmentStatusIcon } from "./ShipmentStatusIcon";
 import { formatDateTime } from "../../utils/formatDateTime";
 import { getUserName } from "../../services/usersService";
 
@@ -9,7 +9,7 @@ export function ShipmentTimeline({ history }) {
             {history.map((event, i) => (
                 <div key={i} className="rex-timeline__item">
                     <div className="rex-timeline__marker" data-tone={STATUS_TONE[event.status]}>
-                        {STATUS_ICON[event.status]}
+                        <ShipmentStatusIcon status={event.status} />
                     </div>
                     <div className="rex-timeline__content">
                         <div className="rex-timeline__top">

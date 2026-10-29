@@ -23,7 +23,7 @@ export function CatalogListPage() {
 
     return (
         <div className="rex-catalog-page">
-            <header className="rex-catalog-page__header">
+            <header className="rex-catalog-page__header rex-page-header">
                 <h1 className="rex-catalog-page__title">Catálogo de Servicios</h1>
                 <p className="rex-catalog-page__subtitle">
                     Elige el servicio ideal para cada tipo de envío
